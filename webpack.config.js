@@ -5,7 +5,7 @@ module.exports = {
     entry: './index.js',
     mode: 'development',
     output: {
-        path: path.resolve(__dirname, './dist'),
+        path: path.resolve(__dirname, './build'),
         filename: 'index_bundle.js',
     },
     target: 'web',
@@ -18,17 +18,23 @@ module.exports = {
         hot: true,
         liveReload: true,
     },
-    resolve: {
-        extensions: ['.js', '.jsx', '.json'],
-    },
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
                 use: 'babel-loader',
+                exclude: /node_modules/,
             },
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+
         ],
+    },
+    resolve: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     },
     plugins: [
         new HtmlWebpackPlugin({
